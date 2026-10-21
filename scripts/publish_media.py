@@ -30,11 +30,11 @@ Idempotent: if the exact bytes are already published, the script prints
 "already published" on stderr and re-emits the same URL without re-uploading.
 """
 import hashlib
+import hmac
 import os
 import shutil
 import subprocess
 import sys
-import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -421,7 +421,6 @@ def _sigv4_headers(method, url, payload_sha256, env, region="auto"):
 
 
 def hmac_digest(key, msg):
-    import hmac
     return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
 
 
